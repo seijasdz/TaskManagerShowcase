@@ -28,8 +28,8 @@ class AuthController {
           .json({ error: 'Email and password are required' });
       }
 
-      const user = await AuthService.login({ email, password });
-      res.status(200).json(user);
+      const result = await AuthService.login({ email, password });
+      res.status(200).json(result);
     } catch (err) {
       res.status(401).json({ error: err.message });
     }

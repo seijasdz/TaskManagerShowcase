@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+jwt = require('jsonwebtoken');
 const User = require('../models/user.model');
 
 const SALT_ROUNDS = 10;
@@ -21,21 +22,22 @@ class AuthService {
   }
 
   static async login({ email, password }) {
-    console.log(email, password);
     const user = await User.findByEmail(email);
     if (!user) {
       throw new Error('Invalid email or password');
     }
 
-    console.log(user);
     const isValid = await bcrypt.compare(password, user.password_hash);
     if (!isValid) {
       throw new Error('Invalid email or password');
     }
 
-    console.log(user);
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+      expiresIn: process.env.JWT_EXPIRES_IN || '1d',
+    });
 
     return {
+      token,
       id: user.id,
       name: user.name,
       email: user.email,

@@ -26,8 +26,7 @@ routes → controllers → services → models → database
 
 ## Authentication
 
-Authentication is implemented using a simple middleware approach for clarity.
-JWT-based authentication can be easily added if required.
+Authentication is implemented using JWT (JSON Web Tokens) for secure user sessions.
 
 ## Database Design
 
@@ -49,6 +48,8 @@ This backend can be used for:
 
 Install dependencies:
 npm install
+
+Copy .env.example to .env and configure your environment variables.
 
 Run in development mode:
 npm run dev
